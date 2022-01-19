@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-alpine-nginx:3.12
+FROM ghcr.io/linuxserver/baseimage-alpine-nginx:3.15
 
 # set version label
 ARG BUILD_DATE
@@ -21,20 +21,11 @@ RUN \
 	php7-pdo_mysql \
 	php7-tokenizer \
 	php7-zip \
-	tar && \
- echo "**** install heimdall ****" && \
- mkdir -p \
-	/heimdall && \
- if [ -z ${HEIMDALL_RELEASE+x} ]; then \
-	HEIMDALL_RELEASE=$(curl -sX GET "https://api.github.com/repos/linuxserver/Heimdall/releases/latest" \
-	| awk '/tag_name/{print $4;exit}' FS='[""]'); \
- fi && \
- curl -o \
- /heimdall/heimdall.tar.gz -L \
-	"https://github.com/linuxserver/Heimdall/archive/${HEIMDALL_RELEASE}.tar.gz" && \
- echo "**** cleanup ****" && \
- rm -rf \
-	/tmp/*
+	tar \
+  git
+
+RUN echo "**** install heimdall ****" && \
+ git clone git@github.com:OllieJC/Heimdall.git heimdall
 
 # add local files
 COPY root/ /
