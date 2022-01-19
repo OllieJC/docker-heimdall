@@ -27,7 +27,7 @@ RUN \
 RUN echo "**** install heimdall ****" && \
 	mkdir -p /heimdall && \
 	curl -o /heimdall/heimdall.tar.gz -L \
-	"https://github.com/OllieJC/Heimdall/archive/refs/tags/2.2.3.tar.gz" && \
+	"https://github.com/OllieJC/Heimdall/archive/refs/tags/2.2.5.tar.gz" && \
 	echo "**** cleanup ****" && \
 	rm -rf /tmp/*
 
