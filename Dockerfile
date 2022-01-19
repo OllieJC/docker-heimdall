@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-alpine-nginx:3.15
+FROM ghcr.io/linuxserver/baseimage-alpine-nginx:3.12
 
 # set version label
 ARG BUILD_DATE
@@ -22,10 +22,14 @@ RUN \
 	php7-tokenizer \
 	php7-zip \
 	tar \
-  git
+	git
 
 RUN echo "**** install heimdall ****" && \
- git clone git@github.com:OllieJC/Heimdall.git heimdall
+	mkdir -p /heimdall && \
+	curl -o /heimdall/heimdall.tar.gz -L \
+	"https://github.com/OllieJC/Heimdall/archive/refs/tags/2.2.3.tar.gz" && \
+	echo "**** cleanup ****" && \
+	rm -rf /tmp/*
 
 # add local files
 COPY root/ /
